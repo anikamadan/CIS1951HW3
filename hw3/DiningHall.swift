@@ -23,8 +23,7 @@ struct DiningHall: Identifiable {
     }
     
     mutating func completeHall() {
-        self = DiningHall(name: self.name, location: self.location)
-        self.isCollected = true
+            self.isCollected = true
     }
     
     

@@ -22,31 +22,49 @@ import SwiftUI
 struct DiningHallView: View {
 //    @Bindable var diningHall: DiningHall
     @Binding var hall: DiningHall
-//    @Bindable var diningHalls = DiningHallModel()
-    
-    var body: some View {
-        if(hall.isCollected){
+        
+        var body: some View {
             VStack{
-                Text("collected")
-            }
-            
-        }
-        else{
-            VStack{
-                Text("\(hall.isCollected)")
                 Text(hall.name)
-                Button(action: {
-                    hall.completeHall()
-                }) {
-                    Text("Complete")
-                        .foregroundStyle(.red)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    
+                if hall.isCollected {
+                    VStack {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.green)
+                        
+                        Text("Dining Hall Completed!")
+                            .font(.title)
+                            .foregroundColor(.green)
+                            .padding()
+                    }
+                } else {
+                    VStack {
+                        Text("This dining hall is not collected yet.")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .padding()
+                            
+                        Button(action: {
+                            hall.isCollected = true
+                        }) {
+                            Text("Complete")
+                                .font(.title)
+                                .padding()
+                                .frame(width: 200)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                    }
                 }
             }
-            
+            .padding()
         }
-        
-    }
-    
     
     
     
