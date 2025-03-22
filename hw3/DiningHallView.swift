@@ -22,6 +22,7 @@ import SwiftUI
 struct DiningHallView: View {
 //    @Bindable var diningHall: DiningHall
     @Binding var hall: DiningHall
+    @Environment(DiningHallModel.self) var diningHallModel
         
         var body: some View {
             VStack{

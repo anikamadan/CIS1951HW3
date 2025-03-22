@@ -15,13 +15,13 @@
 import Foundation
 import SwiftUI
 import CoreLocation
+import Observation
 
-@Observable
-class DiningHallModel {
+@Observable class DiningHallModel {
     // MARK: - Properties
-    var diningHalls: [DiningHall] = [] // dictionary to store questions
-    var currentDiningHall: String = "" // name of the current question
-    
+    var collectedHalls: [DiningHall] = [] // dictionary to store the collected dining halls
+    var currentDiningHall: String = "" // name of the current dining hall
+    var diningHalls: [DiningHall] = [] // dictionary to store all the dining halls
     
     // MARK: - Initialization
     init() {
@@ -49,6 +49,6 @@ class DiningHallModel {
         ]
         
     }
-
+    
     
 }

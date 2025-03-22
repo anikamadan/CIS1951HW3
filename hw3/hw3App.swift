@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct hw3App: App {
+    @State var diningHallModel = DiningHallModel()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(diningHallModel)
         }
     }
 }

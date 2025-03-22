@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		845D697B2D8A2AE0001E09FB /* hw3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = hw3.app; path = "/Users/Anika/Desktop/ios dev/hw3/build/Debug-iphoneos/hw3.app"; sourceTree = "<absolute>"; };
+		81CF26B82D8F1AA20098EB31 /* hw3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hw3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				845D697D2D8A2AE0001E09FB /* hw3 */,
+				81CF26B82D8F1AA20098EB31 /* hw3.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,7 +59,7 @@
 			packageProductDependencies = (
 			);
 			productName = hw3;
-			productReference = 845D697B2D8A2AE0001E09FB /* hw3.app */;
+			productReference = 81CF26B82D8F1AA20098EB31 /* hw3.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
