@@ -92,11 +92,15 @@ import MapKit
         }
     }
     
+    // if the user properly shakes their device at any time, we will perform a check of whether they
+    // can collect any dining halls within 50 meters
     func handleMotion(_ motion: CMDeviceMotion) {
         let correctThreshold = Double.pi * 0.35
         let incorrectThreshold = Double.pi * 0.65
         let absoluteRoll = abs(motion.attitude.roll)
-        
+        if absoluteRoll < correctThreshold {
+            checkDistanceFromAnyHall(currentLocation: <#T##CLLocation#>)
+        }
     }
  //    func locationManager (
  //        _ manager: CLLocationManager,
