@@ -37,6 +37,17 @@ import CoreMotion
         }
     }
     
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            requestLocation()
+        case .denied, .restricted:
+            print("Not authorized to get location.")
+        default:
+            break
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         isRequestingLocation = false
         print("Failed to get location: \(error)")
