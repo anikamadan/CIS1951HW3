@@ -11,6 +11,7 @@ import Observation
 import CoreLocation
 import CoreMotion
 
+// not sure if we should include a "Did Update Locations" method or not?
 @Observable class GameViewModel: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let motionManager = CMMotionManager()
@@ -47,7 +48,7 @@ import CoreMotion
             let distance = currentLocation.distance(from: diningHallLocation)
             if distance <= 50 && !diningHall.isCollected {
                 diningHall.completeHall()
-                diningHallModel.collectedHalls[index] = diningHall
+                diningHallModel.collectedHalls.append(diningHall)
             }
         }
     }
