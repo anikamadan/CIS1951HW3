@@ -93,7 +93,7 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .background(diningHallModel.diningHalls[7].isCollected ? .green : .blue)
                     .cornerRadius(10)
-                NavigationLink("Mclelland", destination: DiningHallView(hall: $diningHallModel.diningHalls[8]))
+                NavigationLink("McClelland", destination: DiningHallView(hall: $diningHallModel.diningHalls[8]))
                     .font(.title)
                     .padding(1)
                     .frame(maxWidth: .infinity)
@@ -124,6 +124,8 @@ struct ContentView: View {
 
 
 #Preview {
+    @Previewable @State var diningHallModel = DiningHallModel()
     ContentView()
+        .environment(diningHallModel)
 }
 
