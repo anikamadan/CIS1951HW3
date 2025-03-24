@@ -12,6 +12,8 @@ import CoreLocation
 import CoreMotion
 
 // not sure if we should include a "Did Update Locations" method or not?
+// not sure how to request location permissions + handle the case where the user has already approved our request +
+// set up a purpose string
 @Observable class GameViewModel: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let motionManager = CMMotionManager()
