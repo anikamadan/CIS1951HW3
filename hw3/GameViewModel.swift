@@ -39,6 +39,18 @@ import CoreMotion
         print("Failed to get location: \(error)")
     }
     
+    // method that checks if we are within 50 meters of any dining hall
+    func checkDistanceFromAnyHall(currentLocation: CLLocation) {
+        for index in 0..<diningHallModel.diningHalls.count {
+            var diningHall = diningHallModel.diningHalls[index]
+            let diningHallLocation = CLLocation(latitude: diningHall.location.latitude, longitude: diningHall.location.longitude)
+            let distance = currentLocation.distance(from: diningHallLocation)
+            if distance <= 50 && !diningHall.isCollected {
+                diningHall.completeHall()
+                diningHallModel.collectedHalls[index] = diningHall
+            }
+        }
+    }
  //    func locationManager (
  //        _ manager: CLLocationManager,
  //        didVisit visit: CLVisit
