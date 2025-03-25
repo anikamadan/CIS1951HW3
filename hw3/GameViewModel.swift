@@ -15,6 +15,12 @@ import MapKit
 // not sure if we should include a "Did Update Locations" method or not?
 // not sure how to request location permissions + handle the case where the user has already approved our request +
 // set up a purpose string
+
+// game state -> which dining hall is being collected ? (switch)
+// conditions? -> close enough; shaking device
+//
+// not collected (false); ready to collect; collected (true)
+// enum -> HallState -> three cases
 @Observable class GameViewModel: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let motionManager = CMMotionManager()
@@ -60,6 +66,7 @@ import MapKit
 //     }
 //    }
     
+    // update state
     // method that checks if we are within 50 meters of any dining hall
     func checkDistanceFromAnyHall(currentLocation: CLLocation) {
         for index in 0..<diningHallModel.diningHalls.count {
@@ -91,7 +98,7 @@ import MapKit
             print("Device motion is not available!")
         }
     }
-    
+    // no api says if the device is shaking or not
     // if the user properly shakes their device at any time, we will perform a check of whether they
     // can collect any dining halls within 50 meters
     func handleMotion(_ motion: CMDeviceMotion) {
@@ -99,7 +106,7 @@ import MapKit
         let incorrectThreshold = Double.pi * 0.65
         let absoluteRoll = abs(motion.attitude.roll)
         if absoluteRoll < correctThreshold {
-            checkDistanceFromAnyHall(currentLocation: <#T##CLLocation#>)
+            checkDistanceFromAnyHall(currentLocation: CLLocation())
         }
     }
  //    func locationManager (
@@ -108,5 +115,9 @@ import MapKit
  //        ) {
  //
  //        }
+    // tap on hall -> check if the user is close enough -> enter a collection mode -> check if device is being shaken
+    // ->
+    // aka view -> location -> enter a collection -> motion
+    //
 
 }
