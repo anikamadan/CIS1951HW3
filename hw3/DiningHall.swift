@@ -8,7 +8,6 @@ import Foundation
 import SwiftUI
 import CoreLocation
 
-
 struct DiningHall: Identifiable {
     var id: UUID
     var name: String
