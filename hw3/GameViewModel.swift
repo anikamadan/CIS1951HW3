@@ -85,7 +85,7 @@ import MapKit
     // update state
     // method that checks if we are within 50 meters of any dining hall
     func checkDistanceFromAnyHall(currentLocation: CLLocation, index: Int) {
-        var diningHall = diningHallModel.diningHalls[index]
+        let diningHall = diningHallModel.diningHalls[index]
         let diningHallLocation = CLLocation(latitude: diningHall.location.latitude, longitude: diningHall.location.longitude)
         let distance = currentLocation.distance(from: diningHallLocation)
         if distance <= 50 && !diningHall.isCollected {
@@ -123,61 +123,31 @@ import MapKit
     }
     
     func determinHallState(index: Int){
-        guard let currentLocation = locationManager.location else {
-                print("Current location is not available")
-                return
-            }
-        if (diningHallModel.diningHalls[index].isCollected){
-            state = .completed
-        }
-        else{
-            checkDistanceFromAnyHall(currentLocation: currentLocation, index: index)
-        }
+        
     }
     
     func changeHall(index: Int){
-//        guard let currentLocation = locationManager.location else {
-//                print("Current location is not available")
-//                return
-//            }
-        
-        switch index {
-        case 0:
-            state = .commons
-            determinHallState(index: 0)
-        case 1:
-            state = .accenture
-            determinHallState(index: 1)
-        case 2:
-            state = .falk
-            determinHallState(index: 2)
-        case 3:
-            state = .hill
-            determinHallState(index: 3)
-        case 4:
-            state = .houston
-            determinHallState(index: 4)
-        case 5:
-            state = .joes
-            determinHallState(index: 5)
-        case 6:
-            state = .kceh
-            determinHallState(index: 6)
-        case 7:
-            state = .lauder
-            determinHallState(index: 7)
-        case 8:
-            state = .mclelland
-            determinHallState(index: 8)
-        case 9:
-            state = .pret
-            determinHallState(index: 9)
-        case 10:
-            state = .quaker
-            determinHallState(index: 10)
-        default:
+        if (index < 0){
             state = .home
+            
+        } else{
+            state = diningHallModel.diningHalls[index].state
+            
+            guard let currentLocation = locationManager.location else {
+                    print("Current location is not available")
+                    return
+                }
+            if (diningHallModel.diningHalls[index].isCollected){
+                state = .completed
+            }
+            else if(diningHallModel.collectedStates.contains(state)){
+                state = .completed
+            }
+            else{
+                checkDistanceFromAnyHall(currentLocation: currentLocation, index: index)
+            }
         }
+
     }
     
 
@@ -186,16 +156,19 @@ import MapKit
     // can collect any dining halls within 50 meters
     
     func handleMotion(_ motion: CMDeviceMotion) {
-        let correctThreshold = Double.pi * 1
-        let incorrectThreshold = Double.pi * 0.65
-        let absoluteRoll = abs(motion.attitude.roll)
+        let accelerationThreshold = 2.0 // Adjust this threshold based on testing
+        let accelerationMagnitude = sqrt(
+            pow(motion.userAcceleration.x, 2) +
+            pow(motion.userAcceleration.y, 2) +
+            pow(motion.userAcceleration.z, 2)
+        )
         
         switch state {
 
         case .commons, .accenture, .falk, .hill, .houston, .joes, .kceh, .lauder, .mclelland, .pret, .quaker:
             switch locState{
             case .closeEnough:
-                if absoluteRoll > correctThreshold{
+                if accelerationMagnitude > accelerationThreshold{
                     completeCurrHall()
                     state = .completed
                     feedbackGenerator.notificationOccurred(.success)
@@ -211,56 +184,25 @@ import MapKit
     }
     
     func completeCurrHall(){
-        switch state{
-        case .commons:
-            diningHallModel.diningHalls[0].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[0])
-        case .accenture:
-            diningHallModel.diningHalls[1].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[1])
-        case .falk:
-            diningHallModel.diningHalls[2].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[2])
-        case .hill:
-            diningHallModel.diningHalls[3].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[3])
-        case .houston:
-            diningHallModel.diningHalls[4].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[4])
-        case .joes:
-            diningHallModel.diningHalls[5].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[5])
-        case .kceh:
-            diningHallModel.diningHalls[6].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[6])
-        case .lauder:
-            diningHallModel.diningHalls[7].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[7])
-        case .mclelland:
-            diningHallModel.diningHalls[8].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[8])
-        case .pret:
-            diningHallModel.diningHalls[9].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[9])
-        case .quaker:
-            diningHallModel.diningHalls[10].completeHall()
-            diningHallModel.collectedHalls.append(diningHallModel.diningHalls[10])
-        default:
-            break
+        for i in 0..<diningHallModel.diningHalls.count{
+            diningHallModel.collectedStates.append(state)
+            var hall = diningHallModel.diningHalls[i]
+            if (state == hall.state){
+                hall.completeHall()
+                diningHallModel.collectedHalls.append(hall)
+            }
         }
-            
     }
     
- //    func locationManager (
- //        _ manager: CLLocationManager,
- //        didVisit visit: CLVisit
- //        ) {
- //
- //        }
-    // tap on hall -> check if the user is close enough -> enter a collection mode -> check if device is being shaken
-    // ->
-    // aka view -> location -> enter a collection -> motion
-    //
+    func getName() -> String{
+        for i in 0..<diningHallModel.diningHalls.count{
+            let hall = diningHallModel.diningHalls[i]
+            if (state == hall.state){
+                return hall.name
+            }
+        }
+        return ""
+    }
 
 }
 

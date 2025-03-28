@@ -13,11 +13,15 @@ struct DiningHall: Identifiable {
     var name: String
     var location: CLLocationCoordinate2D
     var isCollected: Bool
+    var state: GameState
+    var index: Int
     
-    init( name: String, location: CLLocationCoordinate2D) {
+    init( name: String, location: CLLocationCoordinate2D, state: GameState, index: Int) {
         self.id = UUID() // set id to random id
         self.name = name
         self.location = location
+        self.state = state
+        self.index = index
         isCollected = false
     }
     

@@ -22,6 +22,7 @@ import Observation
     var diningHalls: [DiningHall] = [] // dictionary to store all the dining halls
     var currentDiningHall: String = "" // name of the current dining hall
     var collectedHalls: [DiningHall] = [] // dictionary to store all the collected dining halls
+    var collectedStates: [GameState] = []
     
     // MARK: - Initialization
     init() {
@@ -34,17 +35,17 @@ import Observation
     func loadDiningHalls() {
         
         self.diningHalls = [
-            DiningHall(name: "1920 Commons", location: CLLocationCoordinate2D.commons),
-            DiningHall(name: "Accenture Cafe", location: CLLocationCoordinate2D.accenture),
-            DiningHall(name: "Falk Kosher", location: CLLocationCoordinate2D.falk),
-            DiningHall(name: "Hill", location: CLLocationCoordinate2D.hill),
-            DiningHall(name: "Houston", location: CLLocationCoordinate2D.houston),
-            DiningHall(name: "Joe's Cafe", location: CLLocationCoordinate2D.joes),
-            DiningHall(name: "Kings Court English House", location: CLLocationCoordinate2D.kceh),
-            DiningHall(name: "Lauder", location: CLLocationCoordinate2D.lauder),
-            DiningHall(name: "McLelland", location: CLLocationCoordinate2D.mcclelland),
-            DiningHall(name: "Pret", location: CLLocationCoordinate2D.pret),
-            DiningHall(name: "Quaker Kitchen", location: CLLocationCoordinate2D.quaker)
+            DiningHall(name: "1920 Commons", location: CLLocationCoordinate2D.commons, state: .commons, index: 0),
+            DiningHall(name: "Accenture Cafe", location: CLLocationCoordinate2D.accenture, state: .accenture, index: 1),
+            DiningHall(name: "Falk Kosher", location: CLLocationCoordinate2D.falk, state: .falk, index: 2),
+            DiningHall(name: "Hill", location: CLLocationCoordinate2D.hill, state: .hill, index: 3),
+            DiningHall(name: "Houston", location: CLLocationCoordinate2D.houston, state: .houston, index: 4),
+            DiningHall(name: "Joe's Cafe", location: CLLocationCoordinate2D.joes, state: .joes, index: 5),
+            DiningHall(name: "Kings Court English House", location: CLLocationCoordinate2D.kceh, state: .kceh, index: 6),
+            DiningHall(name: "Lauder", location: CLLocationCoordinate2D.lauder, state: .lauder, index: 7),
+            DiningHall(name: "McLelland", location: CLLocationCoordinate2D.mcclelland, state: .mclelland, index: 8),
+            DiningHall(name: "Pret", location: CLLocationCoordinate2D.pret, state: .pret, index: 9),
+            DiningHall(name: "Quaker Kitchen", location: CLLocationCoordinate2D.quaker, state: .quaker, index: 10)
             
         ]
         
